@@ -1,4 +1,4 @@
-import { View, Text, Image, StyleSheet } from 'react-native'
+import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
 import React from 'react'
 import Colors from '../../Utils/Colors'
 
@@ -11,13 +11,29 @@ export default function Login() {
       />
 
       <View style={styles.subContainer}>
-        <Text style={{fontSize:27, color:Colors.WHITE, textAlign:'center'}}>
+        <Text style={{fontSize:20, color:Colors.WHITE, textAlign:'center'}}>
             Let's find 
             <Text style={{fontWeight:'bold'}}>
-                 Professional Cleaning and Repair 
+                 {'\n'}
+                 Professional 
+                 {'\n'}
+                 Cleaning and Repair
+                 {'\n'}
             </Text>
             Services
         </Text>
+        <Text style={{fontSize:13, color:Colors.WHITE, textAlign:'center', marginTop:20}}>
+                Best App to find professional services near you 
+        </Text>
+
+        <TouchableOpacity 
+            style={styles.button}
+            onPress={() => console.log("Button clicked")}
+        >
+        <Text style={{fontSize:17, color:Colors.PRIMARY, textAlign:'center'}}>
+                Let's Get Started 
+        </Text>
+        </TouchableOpacity>
 
       </View>
     </View>
@@ -41,5 +57,11 @@ const styles = StyleSheet.create({
         borderTopLeftRadius:30,
         borderTopRightRadius:30,
         padding:20,
+    },
+    button:{
+        padding:15,
+        backgroundColor:Colors.WHITE,
+        borderRadius:99,
+        marginTop:40,
     }
 })
