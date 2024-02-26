@@ -1,31 +1,45 @@
-import { View, Text, Image, StyleSheet } from 'react-native'
+import { View, Text, Image, StyleSheet, TextInput } from 'react-native'
 import React from 'react'
 import { useUser } from '@clerk/clerk-expo'
 import Colors from '../../Utils/Colors'
+
+import { FontAwesome, Ionicons  } from '@expo/vector-icons';
 
 export default function Header() {
 
     const { user, isLoading } = useUser()
 
   return user && (
-    <View style={styles.container}>    
-        <View style={styles.profileContainer}>
-            <Image 
-                source={{uri:user?.imageUrl}}
-                style={styles.userImage}
-            />
-            <View style={styles.userData}>
-                <Text 
-                    style={{color: Colors.WHITE}}
-                >
-                    Welcome, 
-                </Text>
-                <Text
-                    style={{color: Colors.WHITE, fontSize: 20}}
-                >
-                    {user?.fullName}
-                </Text>
+    <View style={styles.container}>
+        {/* Profile Section */}
+        <View style={styles.profileMainContainer}>
+            <View style={styles.profileContainer}>
+                <Image 
+                    source={{uri:user?.imageUrl}}
+                    style={styles.userImage}
+                />
+                <View style={styles.userData}>
+                    <Text 
+                        style={{color: Colors.WHITE}}
+                    >
+                        Welcome, 
+                    </Text>
+                    <Text
+                        style={{color: Colors.WHITE, fontSize: 20}}
+                    >
+                        {user?.fullName}
+                    </Text>
+                </View>
             </View>
+            <FontAwesome name="bookmark-o" size={25} color={Colors.WHITE} />
+        </View> 
+        {/* Search Bar Section */}
+        <View style={styles.SearchBarContainer}>
+            <TextInput 
+                placeholder='Search'
+                style={styles.TextInput}
+            />
+            <FontAwesome name="search" size={25} color={Colors.WHITE} />
         </View>
     </View>
   )
@@ -40,10 +54,17 @@ const styles = StyleSheet.create({
         borderBottomLeftRadius: 25,
         borderBottomRightRadius: 25,
     },
+    profileMainContainer: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between'
+    },
     profileContainer:{
         display: 'flex',
         flexDirection: 'row',
-        alignItems: 'center'
+        alignItems: 'center',
+        gap: 10
     },
     userImage:{
         width: 45,
@@ -51,6 +72,20 @@ const styles = StyleSheet.create({
         borderRadius:99,
     },
     userData: {
-        paddingLeft: 5,
+        // paddingLeft: 5,
+    },
+    SearchBarContainer: {
+        marginTop: 15,
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between'
+    },
+    TextInput: {
+        padding: 7,
+        paddingHorizontal: 16,
+        backgroundColor: Colors.WHITE,
+        borderRadius: 8,
+        width: '85%'
     }
 })
