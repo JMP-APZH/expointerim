@@ -66,7 +66,7 @@ export default function Slider() {
         showsHorizontalScrollIndicator={false}
         renderItem={({item, index}) => (
             <View 
-                style={{marginRight: 5}}
+                style={{marginRight: 10}}
             >
                 {/* <Text 
                     style={{color: Colors.PRIMARY}}
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     sliderImage: {
         width: 270,
         height: 150,
-        borderRadius: 40,
+        borderRadius: 10,
         objectFit: 'contain',
     }
 })
