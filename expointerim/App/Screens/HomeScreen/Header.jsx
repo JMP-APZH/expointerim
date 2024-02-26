@@ -1,4 +1,4 @@
-import { View, Text, Image } from 'react-native'
+import { View, Text, Image, StyleSheet } from 'react-native'
 import React from 'react'
 import { useUser } from '@clerk/clerk-expo'
 
@@ -6,11 +6,11 @@ export default function Header() {
 
     const { user, isLoading } = useUser()
 
-  return (
+  return user && (
     <View>
       <Image 
         source={{uri:user?.imageUrl}}
-        style={{}}
+        style={styles.userImage}
       />
     </View>
   )
@@ -18,6 +18,7 @@ export default function Header() {
 
 const styles = StyleSheet.create({
     userImage:{
-        width:
-
+        width: 45,
+        height: 45,
+    }
 })
