@@ -20,12 +20,12 @@ export default function Header() {
                 />
                 <View style={styles.userData}>
                     <Text 
-                        style={{color: Colors.WHITE}}
+                        style={{color: Colors.WHITE, fontFamily:'outfit-regular'}}
                     >
                         Welcome, 
                     </Text>
                     <Text
-                        style={{color: Colors.WHITE, fontSize: 20}}
+                        style={{color: Colors.WHITE, fontSize: 20, fontFamily:'outfit-medium'}}
                     >
                         {user?.fullName}
                     </Text>
@@ -92,7 +92,8 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.WHITE,
         borderRadius: 8,
         width: '85%',
-        fontSize: 16
+        fontSize: 16,
+        // fontFamily: 'outfit-regular'
     },
     searchBtn: {
         backgroundColor: Colors.WHITE,
