@@ -8,7 +8,9 @@ export default function HomeScreen() {
   return (
     <View>
       <Header />
-      <Slider />
+      <View style={{padding: 20}}>
+        <Slider />
+      </View>
     </View>
   )
 }
