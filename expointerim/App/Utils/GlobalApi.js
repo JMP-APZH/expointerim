@@ -24,3 +24,6 @@ const getSlider = async () => {
 
 }
  
+export default {
+    getSlider
+}
