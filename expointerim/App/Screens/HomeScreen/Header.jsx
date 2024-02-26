@@ -39,7 +39,10 @@ export default function Header() {
                 placeholder='Search'
                 style={styles.TextInput}
             />
-            <FontAwesome name="search" size={25} color={Colors.WHITE} />
+            <FontAwesome 
+                style={styles.searchBtn}
+                name="search" 
+                size={25} color={Colors.PRIMARY} />
         </View>
     </View>
   )
@@ -79,13 +82,21 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-between'
+        // justifyContent: 'space-between',
+        gap: 10,
+        marginBottom: 5
     },
     TextInput: {
         padding: 7,
         paddingHorizontal: 16,
         backgroundColor: Colors.WHITE,
         borderRadius: 8,
-        width: '85%'
+        width: '85%',
+        fontSize: 16
+    },
+    searchBtn: {
+        backgroundColor: Colors.WHITE,
+        padding: 8,
+        borderRadius: 8
     }
 })
