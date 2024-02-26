@@ -41,7 +41,7 @@ export default function Slider() {
 
         const data2 = data?.sliders
 
-        console.log('From New Slider:', data2)
+        // console.log('From New Slider:', data2)
     
     
     // useEffect(() => {
@@ -62,19 +62,21 @@ export default function Slider() {
       <Text style={StyleSheet.heading}> Offers for you </Text>
       <FlatList 
         data={data2}
+        horizontal={true}
+        showsHorizontalScrollIndicator={false}
         renderItem={({item, index}) => (
             <View 
-                // style={{color: Colors.PRIMARY}}
+                style={{marginRight: 5}}
             >
-                <Text 
+                {/* <Text 
                     style={{color: Colors.PRIMARY}}
-                >
-                    {item.name}
+                > */}
+                    {/* {item.name} */}
                     <Image 
                         source={{uri:item?.image?.url}}
                         style={styles.sliderImage}
                     />
-                </Text>
+                {/* </Text> */}
             </View>
         )}
       />
@@ -91,7 +93,7 @@ const styles = StyleSheet.create({
     sliderImage: {
         width: 270,
         height: 150,
-        borderRadius: 20,
+        borderRadius: 40,
         objectFit: 'contain',
     }
 })
