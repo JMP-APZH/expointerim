@@ -6,6 +6,7 @@ import GlobalApi from '../../Utils/GlobalApi';
 
 import { ApolloClient, InMemoryCache, gql, useQuery } from '@apollo/client';
 import Colors from '../../Utils/Colors';
+import Heading from '../../Components/Heading';
 
 const client = new ApolloClient({
     uri: 'https://api-eu-central-1-shared-euc1-02.hygraph.com/v2/clt2ywf2t1xc508vwzieo93jo/master',
@@ -23,6 +24,18 @@ const client = new ApolloClient({
         }
     }
     `;
+
+const GET_CATEGORIES = gql`
+query GetCategory {
+    categories {
+      id
+      name
+      icon {
+        url
+      }
+    }
+  }
+  `;
 
 export default function Slider() {
 
@@ -59,7 +72,7 @@ export default function Slider() {
 
   return (
     <View>
-      <Text style={StyleSheet.heading}> Offers for you </Text>
+      <Heading text={'Offers for you'} />
       <FlatList 
         data={data2}
         horizontal={true}
@@ -87,6 +100,7 @@ export default function Slider() {
 const styles = StyleSheet.create({
     heading: {
         fontSize: 20,
+        // fontWeight: 'bold',
         fontFamily: 'outfit-medium',
         marginBottom: 10,
     },
