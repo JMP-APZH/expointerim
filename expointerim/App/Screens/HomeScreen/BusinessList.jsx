@@ -10,7 +10,7 @@ const client = new ApolloClient({
     cache: new InMemoryCache(),
   });
 
-  const GET_SLIDERS = gql`
+  const GET_BUSINESS_LISTS = gql`
       query GetBusinessList {
             businessLists {
                 id
@@ -30,9 +30,28 @@ const client = new ApolloClient({
     `;
 
 
+const GET_BUSINESS_LISTS_BY_CAT = gql`
+      query GetBusinessList($category: String!) {
+            businessLists(where: {category: { name: $category }}) {
+                id
+                name
+                email
+                contactPerson
+                category {
+                name
+                }
+                address
+                about
+                images {
+                url
+                }
+            }
+        }
+    `;
+
 export default function BusinessList() {
 
-    const { loading, error, data } = useQuery(GET_SLIDERS);
+    const { loading, error, data } = useQuery(GET_BUSINESS_LISTS);
 
     if (loading) {console.log('Loading...')};
     if (error) {console.log('Error!', error)};

@@ -9,19 +9,21 @@ export default function BusinessItemSmall({business}) {
         source={{uri:business?.images[0].url}}
         style={styles.image}
       />
-      <View>
+      <View style={styles.infoContainer}>
         <Text 
             style={{fontSize: 13, fontFamily:'outfit-medium'}}
         >
             { business?.name }
         </Text>
         <Text 
-            style={{fontSize: 10, fontFamily:'outfit-regular'}}
+            style={{fontSize: 10, fontFamily:'outfit-regular', color:Colors.DARK_GRAY}}
         >
             { business?.contactPerson }
         </Text>
         <Text
-            style={{fontSize: 8, fontFamily:'outfit-regular', padding: 3, color:Colors.PRIMARY}}
+            style={{fontSize: 8, fontFamily:'outfit-regular', padding: 3, 
+                    color:Colors.PRIMARY, backgroundColor: Colors.PRIMARY_LIGHT, 
+                    borderRadius: 3, alignSelf: 'flex-start', paddingHorizontal: 7}}
         >{ business?.category?.name }</Text>
       </View>
     </View>
@@ -33,6 +35,11 @@ const styles = StyleSheet.create({
         padding: 10,
         backgroundColor: Colors.WHITE,
         borderRadius: 10,
+    },
+    infoContainer: {
+        padding: 7,
+        display: 'flex',
+        gap: 3
     },
     image: {
         width: 160,

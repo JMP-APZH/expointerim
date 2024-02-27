@@ -7,6 +7,7 @@ import BookingScreen from '../Screens/BookingScreen/BookingScreen';
 
 import { FontAwesome, Ionicons  } from '@expo/vector-icons';
 import Colors from '../Utils/Colors';
+import HomeNavigation from './HomeNavigation';
 
 
 const Tab = createBottomTabNavigator();
@@ -20,8 +21,8 @@ export default function TabNavigations() {
         }}
     >
       <Tab.Screen 
-        name='home'
-        component={HomeScreen}
+        name='home-navigation'
+        component={HomeNavigation}
         options={{
             tabBarLabel:({color}) => (
                 <Text 
