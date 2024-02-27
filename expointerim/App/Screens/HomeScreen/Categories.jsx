@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, FlatList, Image } from 'react-native'
 import React from 'react'
 
 import { ApolloClient, InMemoryCache, gql, useQuery } from '@apollo/client';
@@ -37,11 +37,34 @@ export default function Categories() {
     // console.log('Out of the Categories API2: ', data2)
 
   return (
-    <View>
+    <View style={{marginTop: 10}}>
       <Heading 
         text={'Categories'} 
         isViewAll = {true}
         />
+        <FlatList 
+        data={data2}
+        numColumns={4}
+        // horizontal={true}
+        // showsHorizontalScrollIndicator={false}
+        renderItem={({item, index}) => index<=4 && (
+            <View 
+                style={styles.container}
+            >
+                <View 
+                    style={styles.iconContainer}
+                >
+                    <Image 
+                        source={{uri:item?.icon?.url}}
+                        style={{width: 30, height: 30}}
+                    />
+                </View>
+                <Text style={{fontFamily: 'outfit-medium', marginTop: 5}}>
+                    {item.name}
+                </Text>
+            </View>
+        )}
+      />
     </View>
   )
 }
@@ -54,5 +77,14 @@ const styles = StyleSheet.create({
         fontFamily: 'outfit-medium',
         marginBottom: 10,
     },
+    container: {
+        flex: 1,
+        alignItems: 'center',
+    },
+    iconContainer: {
+        backgroundColor: Colors.LIGHT_GRAY,
+        padding: 17,
+        borderRadius: 99
+    }
     
 })
