@@ -52,7 +52,9 @@ export default function Categories() {
         renderItem={({item, index}) => index<=4 && (
             <TouchableOpacity 
                 style={styles.container}
-                onPress={() => navigation.push('business-list')}
+                onPress={() => navigation.push('business-list', {
+                  category: item.name
+                })}
             >
                 <View 
                     style={styles.iconContainer}
