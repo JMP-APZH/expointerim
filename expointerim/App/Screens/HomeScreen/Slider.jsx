@@ -25,17 +25,6 @@ const client = new ApolloClient({
     }
     `;
 
-const GET_CATEGORIES = gql`
-query GetCategory {
-    categories {
-      id
-      name
-      icon {
-        url
-      }
-    }
-  }
-  `;
 
 export default function Slider() {
 
