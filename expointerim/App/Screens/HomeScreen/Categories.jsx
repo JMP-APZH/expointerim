@@ -1,9 +1,10 @@
-import { View, Text, StyleSheet, FlatList, Image } from 'react-native'
+import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 
 import { ApolloClient, InMemoryCache, gql, useQuery } from '@apollo/client';
 import Colors from '../../Utils/Colors';
 import Heading from '../../Components/Heading';
+import { useNavigation } from '@react-navigation/native';
 
 const client = new ApolloClient({
     uri: 'https://api-eu-central-1-shared-euc1-02.hygraph.com/v2/clt2ywf2t1xc508vwzieo93jo/master',
@@ -25,6 +26,7 @@ query GetCategory {
 
 export default function Categories() {
 
+    const navigation = useNavigation()
     const { loading, error, data } = useQuery(GET_CATEGORIES);
 
     // if (loading) {console.log('Loading...')};
@@ -48,8 +50,9 @@ export default function Categories() {
         // horizontal={true}
         // showsHorizontalScrollIndicator={false}
         renderItem={({item, index}) => index<=4 && (
-            <View 
+            <TouchableOpacity 
                 style={styles.container}
+                onPress={() => navigation.push('business-list')}
             >
                 <View 
                     style={styles.iconContainer}
@@ -62,7 +65,7 @@ export default function Categories() {
                 <Text style={{fontFamily: 'outfit-medium', marginTop: 5}}>
                     {item.name}
                 </Text>
-            </View>
+            </TouchableOpacity>
         )}
       />
     </View>
