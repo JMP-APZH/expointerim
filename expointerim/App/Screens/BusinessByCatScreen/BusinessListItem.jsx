@@ -1,12 +1,20 @@
-import { View, Text, Image, StyleSheet } from 'react-native'
+import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
 import React from 'react'
 import Colors from '../../Utils/Colors'
 import { Entypo } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
 export default function BusinessListItem({business}) {
+
+  const navigation = useNavigation()
+
   return (
-    <View 
+    <TouchableOpacity 
         style={styles.container}
+        onPress={() => navigation.push('business-detail', {
+            business: business
+          })
+        }
     >
         <View 
             style={styles.businessDetailContainer}
@@ -32,7 +40,7 @@ export default function BusinessListItem({business}) {
                     </View>
             </View>
         </View>
-    </View>
+    </TouchableOpacity>
   )
 }
 
