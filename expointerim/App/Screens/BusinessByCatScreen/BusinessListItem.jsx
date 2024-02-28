@@ -1,6 +1,7 @@
 import { View, Text, Image, StyleSheet } from 'react-native'
 import React from 'react'
 import Colors from '../../Utils/Colors'
+import { Entypo } from '@expo/vector-icons';
 
 export default function BusinessListItem({business}) {
   return (
@@ -17,9 +18,18 @@ export default function BusinessListItem({business}) {
                 />
             {/* </View> */}
             <View style={styles.textContainer}>
-                <Text>
+                <Text style={{fontFamily:'outfit-regular', color:Colors.DARK_GRAY, fontSize:12}}>
                     {business.contactPerson}
                 </Text>
+                <Text style={{fontFamily:'outfit-bold', color:Colors.BLACK, fontSize:15}}>
+                    {business.name}
+                </Text>
+                    <View style={{display: 'flex', flexDirection: 'row', gap: 3}}>
+                        <Entypo name="location" size={16} color={Colors.PRIMARY} />
+                        <Text style={{fontFamily:'outfit-regular', color:Colors.DARK_GRAY, fontSize:13}}>
+                        {business.address}
+                        </Text>
+                    </View>
             </View>
         </View>
     </View>
@@ -28,7 +38,7 @@ export default function BusinessListItem({business}) {
 
 const styles = StyleSheet.create({
     container: {
-        flexDirection: 'column', // Set flex direction to column
+        // flexDirection: 'column', // Set flex direction to column
       },
       businessDetailContainer: {
         flexDirection: 'row', // Set flex direction to row
@@ -38,12 +48,14 @@ const styles = StyleSheet.create({
         marginBottom: 15,
       },
       textContainer: {
+        display: 'flex',
+        gap: 4,
         marginLeft: 10, // Add some margin to separate image and text
         justifyContent: 'center', // Center text vertically
       },
       image: {
-        width: 100,
-        height: 100,
+        width: 80,
+        height: 80,
         borderRadius: 15
       }
 })
