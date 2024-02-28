@@ -87,15 +87,9 @@ export default function Slider() {
 }
 
 const styles = StyleSheet.create({
-    heading: {
-        fontSize: 20,
-        // fontWeight: 'bold',
-        fontFamily: 'outfit-medium',
-        marginBottom: 10,
-    },
     sliderImage: {
-        width: 270,
-        height: 150,
+        width: 220,
+        height: 110,
         borderRadius: 10,
         objectFit: 'contain',
     }

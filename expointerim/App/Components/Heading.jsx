@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         // fontWeight: 'bold',
         fontFamily: 'outfit-medium',
-        marginBottom: 10,
+        marginBottom: 5,
     },
     container: {
         display: 'flex',
