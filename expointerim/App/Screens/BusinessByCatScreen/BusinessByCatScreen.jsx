@@ -6,6 +6,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 import { ApolloClient, InMemoryCache, gql, useQuery } from '@apollo/client';
 import BusinessListItem from './BusinessListItem';
+import Colors from '../../Utils/Colors';
 
 const client = new ApolloClient({
     uri: 'https://api-eu-central-1-shared-euc1-02.hygraph.com/v2/clt2ywf2t1xc508vwzieo93jo/master',
@@ -62,16 +63,18 @@ export default function BusinessByCatScreen() {
                 { param?.category }
             </Text>
         </TouchableOpacity>
+        {data2?.length > 0 ?
+            <FlatList 
+            data={data2}
+            style={{marginTop: 10}}
+            renderItem={({item, index}) => index<=4 && (
+                <BusinessListItem business={item} />
+            )}
+        /> : <Text style={{fontFamily: 'outfit-medium', fontSize: 16, textAlign: 'center', marginTop:'20%', color: Colors.DARK_GRAY}}>
+            No Business Found
+        </Text>
         
-        <FlatList 
-        data={data2}
-        // numColumns={4}
-        // horizontal={true}
-        // showsHorizontalScrollIndicator={false}
-        renderItem={({item, index}) => index<=4 && (
-            <BusinessListItem business={item} />
-        )}
-      />
+        }
       </View>
   )
 }
