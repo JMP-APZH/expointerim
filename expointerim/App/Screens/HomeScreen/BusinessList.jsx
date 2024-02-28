@@ -30,25 +30,6 @@ const client = new ApolloClient({
     `;
 
 
-const GET_BUSINESS_LISTS_BY_CAT = gql`
-      query GetBusinessList($category: String!) {
-            businessLists(where: {category: { name: $category }}) {
-                id
-                name
-                email
-                contactPerson
-                category {
-                name
-                }
-                address
-                about
-                images {
-                url
-                }
-            }
-        }
-    `;
-
 export default function BusinessList() {
 
     const { loading, error, data } = useQuery(GET_BUSINESS_LISTS);
