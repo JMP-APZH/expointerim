@@ -28,7 +28,9 @@ export default function BusiDetScreen() {
 
   return (
     <>
-    <FlatList
+    <View style={styles.scrollView}>
+        <FlatList
+            style={{height: '94%'}}
             data={[business]}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({item}) => (
@@ -79,6 +81,21 @@ export default function BusiDetScreen() {
                 </>
             )}
         />
+        <View style={{display: 'flex', flexDirection: 'row', margin: 2, gap: 8}}>
+            <TouchableOpacity
+                style={styles.messageBtn}
+            >
+                <Text style={{borderWidth: 1,  borderColor: Colors.PRIMARY, 
+        borderRadius: 99, textAlign: 'center', fontFamily: 'outfit-medium', color: Colors.PRIMARY, fontSize: 18}}> Message </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+                style={styles.bookingBtn}
+            >
+                <Text style={{backgroundColor: Colors.PRIMARY, borderWidth: 1,  borderColor: Colors.PRIMARY, 
+        borderRadius: 99, textAlign: 'center', fontFamily: 'outfit-medium', color: Colors.WHITE, fontSize: 18}}> Book Now </Text>
+            </TouchableOpacity>
+        </View>
+    </View>
 
     </>
   )
@@ -95,5 +112,13 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         gap: 5,
         alignItems: 'center'
+    },
+    messageBtn: {
+        padding: 5,
+        flex: 1,
+    },
+    bookingBtn: {
+        padding: 5,
+        flex: 1,
     }
 })
