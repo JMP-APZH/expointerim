@@ -1,4 +1,4 @@
-import { View, Text, Image, TouchableOpacity, StyleSheet, ScrollView, FlatList } from 'react-native'
+import { View, Text, Image, TouchableOpacity, StyleSheet, ScrollView, FlatList, Modal } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useNavigation, useRoute } from '@react-navigation/native'
 
@@ -9,11 +9,13 @@ import Heading from '../../Components/Heading';
 import BusinessPhotos from './BusinessPhotos';
 import BusinessAboutMe from './BusinessAboutMe';
 import Header from '../HomeScreen/Header';
+import BookingModal from './BookingModal';
 
 export default function BusiDetScreen() {
 
     const param = useRoute().params;
     const [business, setBusiness] = useState(param?.business)
+    const [showModal, setSchowModal] = useState(false)
 
     const navigation = useNavigation()
     // useEffect(() => {
@@ -29,15 +31,6 @@ export default function BusiDetScreen() {
 
   return (
     <>
-    {/* <View style={styles.scrollView}> */}
-        {/* <View 
-            style={{flex:1, width: '100%'}}
-            forceInset={{ top: 'always' }}
-            >
-            <Text forceInset={{ top: 'always' }}>
-                Header
-            </Text>
-        </View> */}
         <FlatList
             style={{marginTop: 30, height: '94%'}}
             stickyHeaderIndices={[1]} // Make the first item (header) sticky
@@ -100,12 +93,21 @@ export default function BusiDetScreen() {
             </TouchableOpacity>
             <TouchableOpacity
                 style={styles.bookingBtn}
+                onPress={() => setSchowModal(true)}
             >
                 <Text style={{backgroundColor: Colors.PRIMARY, borderWidth: 1,  borderColor: Colors.PRIMARY, 
         borderRadius: 99, textAlign: 'center', fontFamily: 'outfit-medium', color: Colors.WHITE, fontSize: 18}}> Book Now </Text>
             </TouchableOpacity>
         </View>
-    {/* </View> */}
+
+        {/* Booking Screen Modal */}
+        <Modal
+            animationType='slide'
+            visible={showModal}
+        >
+        <BookingModal />
+        
+        </Modal>
     </>
     
 
