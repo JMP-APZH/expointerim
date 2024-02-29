@@ -4,7 +4,7 @@ import PageHeading from '../../Components/PageHeading'
 
 export default function BookingModal() {
   return (
-    <View>
+    <View style={{padding: 20}}>
       <PageHeading title= {'Booking'} />
     </View>
   )

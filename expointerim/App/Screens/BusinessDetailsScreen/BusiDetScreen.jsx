@@ -106,7 +106,7 @@ export default function BusiDetScreen() {
             visible={showModal}
         >
         <BookingModal />
-        
+        {/* <BookingModal hideModal(false) /> */}
         </Modal>
     </>
     

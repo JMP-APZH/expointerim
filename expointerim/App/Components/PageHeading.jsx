@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native'
 import { Ionicons } from '@expo/vector-icons';
 
 export default function PageHeading({title}) {
+// export default function PageHeading({hideModal}) {
 
     const navigation = useNavigation()
 
@@ -13,7 +14,9 @@ export default function PageHeading({title}) {
       <TouchableOpacity 
             style={{display: 'flex', flexDirection: 'row', gap: 10, paddingTop: 10, 
                     alignItems: 'center'}}
-        onPress={() => navigation.goBack()}
+        // onPress={() => navigation.goBack()}
+        onPress={() => hideModal()}
+
             >
             <Ionicons name="arrow-back-outline" size={30} color="black" />
             <Text style={{fontSize: 25, fontFamily:'outfit-medium'}}>
