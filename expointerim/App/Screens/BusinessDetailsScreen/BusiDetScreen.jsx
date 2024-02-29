@@ -8,6 +8,7 @@ import Colors from '../../Utils/Colors';
 import Heading from '../../Components/Heading';
 import BusinessPhotos from './BusinessPhotos';
 import BusinessAboutMe from './BusinessAboutMe';
+import Header from '../HomeScreen/Header';
 
 export default function BusiDetScreen() {
 
@@ -28,15 +29,24 @@ export default function BusiDetScreen() {
 
   return (
     <>
-    <View style={styles.scrollView}>
+    {/* <View style={styles.scrollView}> */}
+        {/* <View 
+            style={{flex:1, width: '100%'}}
+            forceInset={{ top: 'always' }}
+            >
+            <Text forceInset={{ top: 'always' }}>
+                Header
+            </Text>
+        </View> */}
         <FlatList
-            style={{height: '94%'}}
+            style={{marginTop: 30, height: '94%'}}
+            stickyHeaderIndices={[1]} // Make the first item (header) sticky
             data={[business]}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({item}) => (
                 <>
                 <TouchableOpacity 
-                    style={{marginTop: 30, position: 'absolute', zIndex: 10, padding: 20}}
+                    style={{marginTop: 15, position: 'absolute', zIndex: 10, padding: 10}}
                     onPress={() => navigation.goBack()}
                 >
                     <Ionicons name="arrow-back-outline" size={30} color={Colors.WHITE} />
@@ -44,7 +54,7 @@ export default function BusiDetScreen() {
                 
                 {item && (
 
-                <View style={{marginTop: 35,}}>
+                <View style={{marginTop: 6,}}>
                     <Image 
                         source={{uri:item?.images[0]?.url}}
                         style={{width: '100%', height: 225}}
@@ -95,9 +105,10 @@ export default function BusiDetScreen() {
         borderRadius: 99, textAlign: 'center', fontFamily: 'outfit-medium', color: Colors.WHITE, fontSize: 18}}> Book Now </Text>
             </TouchableOpacity>
         </View>
-    </View>
-
+    {/* </View> */}
     </>
+    
+
   )
 }
 
