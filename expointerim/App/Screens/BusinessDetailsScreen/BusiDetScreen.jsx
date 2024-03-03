@@ -18,6 +18,10 @@ export default function BusiDetScreen() {
     const [showModal, setSchowModal] = useState(false)
 
     const navigation = useNavigation()
+
+    const handleOpenCalendar = () => {
+        navigation.push('calendar-view');
+      };
     // useEffect(() => {
     //   console.log('Param from business: ', param?.business)
     // }, [param])
@@ -101,13 +105,19 @@ export default function BusiDetScreen() {
         </View>
 
         {/* Booking Screen Modal */}
-        <Modal
+        {/* <Modal
             animationType='slide'
             visible={showModal}
         >
         <BookingModal />
-        {/* <BookingModal hideModal(false) /> */}
-        </Modal>
+        {/* <BookingModal 
+             onRequestClose={() => setSchowModal(false)}
+        /> */}
+        {/* </Modal> */}
+
+        <TouchableOpacity style={styles.button} onPress={handleOpenCalendar}>
+            <Text style={styles.buttonText}>Open Calendar</Text>
+        </TouchableOpacity>
     </>
     
 
@@ -133,5 +143,15 @@ const styles = StyleSheet.create({
     bookingBtn: {
         padding: 5,
         flex: 1,
-    }
+    },
+    button: {
+        backgroundColor: Colors.PRIMARY,
+        padding: 10,
+        borderRadius: 5,
+        marginTop: 20,
+      },
+      buttonText: {
+        color: Colors.WHITE,
+        fontSize: 18,
+      },
 })

@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import BusinessByCatScreen from '../Screens/BusinessByCatScreen/BusinessByCatScreen';
 import HomeScreen from '../Screens/HomeScreen/HomeScreen';
 import BusiDetScreen from '../Screens/BusinessDetailsScreen/BusiDetScreen';
+import CalendarScreen from '../Screens/CalendarScreen/CalendarScreen';
 
 const Stack = createStackNavigator();
 
@@ -23,6 +24,10 @@ export default function HomeNavigation() {
       <Stack.Screen 
         name='business-detail'
         component={BusiDetScreen}
+      />
+      <Stack.Screen 
+        name="calendar-view" 
+        component={CalendarScreen}
       />
     </Stack.Navigator>
   )

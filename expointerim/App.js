@@ -1,7 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import Login from './App/Screens/LoginScreen/Login';
 import { ClerkProvider, SignedIn, SignedOut } from '@clerk/clerk-expo';
+import Constants from "expo-constants"
 
 import * as SecureStore from "expo-secure-store";
 import { NavigationContainer } from '@react-navigation/native';
@@ -48,7 +49,11 @@ export default function App() {
   return (
     <ClerkProvider 
       tokenCache={tokenCache}
-      publishableKey={process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY}>
+      publishableKey={Constants.expoConfig.extra.clerkPublishableKey}>
+
+      {/* <SafeAreaView 
+        // styles={styles.container}
+      > */}
 
       <ApolloProvider client={client}>
         
@@ -69,6 +74,8 @@ export default function App() {
         </View>
 
       </ApolloProvider>
+
+      {/* </SafeAreaView> */}
 
 
     </ClerkProvider>

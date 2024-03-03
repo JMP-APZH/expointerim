@@ -14,8 +14,8 @@ export default function PageHeading({title}) {
       <TouchableOpacity 
             style={{display: 'flex', flexDirection: 'row', gap: 10, paddingTop: 10, 
                     alignItems: 'center'}}
-        // onPress={() => navigation.goBack()}
-        onPress={() => hideModal()}
+        onPress={() => navigation.goBack()}
+        // onPress={() => hideModal()}
 
             >
             <Ionicons name="arrow-back-outline" size={30} color="black" />
