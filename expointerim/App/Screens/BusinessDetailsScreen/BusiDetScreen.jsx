@@ -97,7 +97,8 @@ export default function BusiDetScreen() {
             </TouchableOpacity>
             <TouchableOpacity
                 style={styles.bookingBtn}
-                onPress={() => setSchowModal(true)}
+                // onPress={() => setSchowModal(true)}
+                onPress={handleOpenCalendar}
             >
                 <Text style={{backgroundColor: Colors.PRIMARY, borderWidth: 1,  borderColor: Colors.PRIMARY, 
         borderRadius: 99, textAlign: 'center', fontFamily: 'outfit-medium', color: Colors.WHITE, fontSize: 18}}> Book Now </Text>
