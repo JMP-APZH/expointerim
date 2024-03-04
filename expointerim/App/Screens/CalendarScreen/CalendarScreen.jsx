@@ -1,14 +1,26 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { View, StyleSheet, Button, Text, Platform } from 'react-native';
 import * as Calendar from 'expo-calendar';
 
 import { Calendar as RNCalendar } from 'react-native-calendars';
+import Colors from '../../Utils/Colors';
 
 export default function CalendarScreen() {
 
   const [calendars, setCalendars] = useState([]);
   const [day, setDay] = useState([])
   const [markedDate, setMarkedDate] = useState('');
+
+  const [selected, setSelected] = useState('');
+
+  const markselectdate = (day) => {
+    setSelected(day.dateString);
+  };
+
+  const onDayPress = useCallback((day) => {
+    // console.log(day.dateString)
+    setSelected(day.dateString);
+  }, []);
   
   const todayDate = new Date()
   let todayDay = todayDate.getDate();
@@ -64,19 +76,34 @@ export default function CalendarScreen() {
     <>
 
     <View style={styles.container}>
-      <RNCalendar stringDate={stringDate}
-        // You can customize the calendar here
-        // For more options, refer to the react-native-calendars documentation
-        style={styles.calendar}
-        markedDates={{ [markedDate]: { selected: true } }} // Mark today's date as selected
-        // markedDates={{ stringDate : { selected: true } }} // Example: Select today's date
-        // markedDates={{ '2024-03-03' : { selected: true } }} // Example: Select today's date
-        onDayPress={(day) => 
-          // console.log('selected day', day)
-          setDay(day)
-        }
-      />
-      {day &&
+      <View style={styles.calendarContainer}>
+        <RNCalendar
+          // You can customize the calendar here
+          // For more options, refer to the react-native-calendars documentation
+          
+          markedDates={{ [markedDate]: { selected: true, selectedColor: Colors.PRIMARY, }, [selected]: { selected: true, selectedColor: '#000000', selectedTextColor: Colors.PRIMARY } }} // Mark today's date as selected
+          // markedDates={{ stringDate : { selected: true } }} // Example: Select today's date
+          // markedDates={{ '2024-03-03' : { selected: true } }} // Example: Select today's date
+          // onDayPress={(day) => markselectdate(day)}
+          onDayPress={onDayPress}
+          // onPress = {(day) => {{ [day.dateString]: { selected: true } }}}
+            // console.log('selected day has following information: ', day)
+            // setDay(day)
+          theme={{
+        backgroundColor: '#F0FFFF',
+        calendarBackground: '#F0FFFF',
+        textSectionTitleColor: '#2F4F4F',
+        selectedDayBackgroundColor: '#000000',
+        selectedDayTextColor: '#ffffff',
+        todayTextColor: '#ffffff',
+        todayBackgroundColor: Colors.PRIMARY,
+        dayTextColor: '#000000',
+        textDisabledColor: '#FFE4B5',
+        arrowColor: Colors.PRIMARY,
+        }}
+        />
+      </View>
+      {/* {day &&
       <View>
         <Text> The day you chose is {day.dateString} </Text>
         <Text> The month of the date you is the {day.month} </Text>
@@ -86,10 +113,10 @@ export default function CalendarScreen() {
       {
         stringDate && 
         <Text> '{ stringDate }' </Text>
-      }
-      <View style={styles.buttonContainer}>
+      } */}
+      {/* <View style={styles.buttonContainer}>
         <Button title="Create a new calendar" onPress={createCalendar} />
-      </View>
+      </View> */}
     </View>
 
     
@@ -132,11 +159,13 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   calendarContainer: {
+    width: '85%',
     marginBottom: 10,
     padding: 10,
     borderWidth: 1,
     borderRadius: 5,
     borderColor: '#ccc',
+    backgroundColor: Colors.BLACK
   },
 });
 

@@ -116,9 +116,9 @@ export default function BusiDetScreen() {
         /> */}
         {/* </Modal> */}
 
-        <TouchableOpacity style={styles.button} onPress={handleOpenCalendar}>
+        {/* <TouchableOpacity style={styles.button} onPress={handleOpenCalendar}>
             <Text style={styles.buttonText}>Open Calendar</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
     </>
     
 
