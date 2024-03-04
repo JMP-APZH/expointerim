@@ -22,6 +22,10 @@ export default function BusiDetScreen() {
     const handleOpenCalendar = () => {
         navigation.push('calendar-view');
       };
+
+    const handleOpenAgenda = () => {
+    navigation.push('agenda-view');
+    };
     // useEffect(() => {
     //   console.log('Param from business: ', param?.business)
     // }, [param])
@@ -91,9 +95,10 @@ export default function BusiDetScreen() {
         <View style={{display: 'flex', flexDirection: 'row', margin: 2, gap: 8}}>
             <TouchableOpacity
                 style={styles.messageBtn}
+                onPress={handleOpenAgenda}
             >
                 <Text style={{borderWidth: 1,  borderColor: Colors.PRIMARY, 
-        borderRadius: 99, textAlign: 'center', fontFamily: 'outfit-medium', color: Colors.PRIMARY, fontSize: 18}}> Message </Text>
+        borderRadius: 99, textAlign: 'center', fontFamily: 'outfit-medium', color: Colors.PRIMARY, fontSize: 18}}> Agenda </Text>
             </TouchableOpacity>
             <TouchableOpacity
                 style={styles.bookingBtn}

@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { View, StyleSheet, Button, Text, Platform } from 'react-native';
 import * as Calendar from 'expo-calendar';
 
-import { Calendar as RNCalendar } from 'react-native-calendars';
+import { Agenda, Calendar as RNCalendar } from 'react-native-calendars';
 import Colors from '../../Utils/Colors';
 
 export default function CalendarScreen() {
@@ -10,6 +10,39 @@ export default function CalendarScreen() {
   const [calendars, setCalendars] = useState([]);
   const [day, setDay] = useState([])
   const [markedDate, setMarkedDate] = useState('');
+  const [items, setItems] = useState({});
+
+  const loadItems = (day) => {
+    setTimeout(() => {
+      const newItems = { ...items };
+      for (let i = -15; i < 85; i++) {
+        const time = day.timestamp + i * 24 * 60 * 60 * 1000;
+        const strTime = timeToString(time);
+  
+        if (!newItems[strTime]) {
+          newItems[strTime] = [];
+          
+          const numItems = Math.floor(Math.random() * 3 + 1);
+          for (let j = 0; j < numItems; j++) {
+            newItems[strTime].push({
+              name: 'Item for ' + strTime + ' #' + j,
+              height: Math.max(50, Math.floor(Math.random() * 150)),
+              day: strTime
+            });
+          }
+        }
+      }
+      setItems(newItems);
+    }, 0);
+  };
+
+  const timeToString = (time) => {
+    const date = new Date(time);
+    return date.toISOString().split('T')[0];
+  };
+    
+
+  
 
   const [selected, setSelected] = useState('');
 
@@ -74,79 +107,41 @@ export default function CalendarScreen() {
 
   return (
     <>
-
-    <View style={styles.container}>
-      <View style={styles.calendarContainer}>
-        <RNCalendar
-          // You can customize the calendar here
-          // For more options, refer to the react-native-calendars documentation
+      <View style={styles.container}>
+        <View style={styles.calendarContainer}>
+          <RNCalendar
+            // You can customize the calendar here
+            // For more options, refer to the react-native-calendars documentation
+            // showWeekNumbers
+            markedDates={{ [markedDate]: { selected: true, selectedColor: Colors.PRIMARY, }, [selected]: { selected: true, selectedColor: '#000000', selectedTextColor: Colors.PRIMARY } }} // Mark today's date as selected
+            // markedDates={{ stringDate : { selected: true } }} // Example: Select today's date
+            // markedDates={{ '2024-03-03' : { selected: true } }} // Example: Select today's date
+            // onDayPress={(day) => markselectdate(day)}
+            onDayPress={onDayPress}
+            // onPress = {(day) => {{ [day.dateString]: { selected: true } }}}
+              // console.log('selected day has following information: ', day)
+              // setDay(day)
+            theme={{
+          backgroundColor: '#F0FFFF',
+          calendarBackground: '#F0FFFF',
+          textSectionTitleColor: '#2F4F4F',
+          selectedDayBackgroundColor: '#000000',
+          selectedDayTextColor: '#ffffff',
+          todayTextColor: '#ffffff',
+          todayBackgroundColor: Colors.PRIMARY,
+          dayTextColor: '#000000',
+          textDisabledColor: '#FFE4B5',
+          arrowColor: Colors.PRIMARY,
+          }}
+          />
           
-          markedDates={{ [markedDate]: { selected: true, selectedColor: Colors.PRIMARY, }, [selected]: { selected: true, selectedColor: '#000000', selectedTextColor: Colors.PRIMARY } }} // Mark today's date as selected
-          // markedDates={{ stringDate : { selected: true } }} // Example: Select today's date
-          // markedDates={{ '2024-03-03' : { selected: true } }} // Example: Select today's date
-          // onDayPress={(day) => markselectdate(day)}
-          onDayPress={onDayPress}
-          // onPress = {(day) => {{ [day.dateString]: { selected: true } }}}
-            // console.log('selected day has following information: ', day)
-            // setDay(day)
-          theme={{
-        backgroundColor: '#F0FFFF',
-        calendarBackground: '#F0FFFF',
-        textSectionTitleColor: '#2F4F4F',
-        selectedDayBackgroundColor: '#000000',
-        selectedDayTextColor: '#ffffff',
-        todayTextColor: '#ffffff',
-        todayBackgroundColor: Colors.PRIMARY,
-        dayTextColor: '#000000',
-        textDisabledColor: '#FFE4B5',
-        arrowColor: Colors.PRIMARY,
-        }}
-        />
+        </View>
       </View>
-      {/* {day &&
-      <View>
-        <Text> The day you chose is {day.dateString} </Text>
-        <Text> The month of the date you is the {day.month} </Text>
-      </View>
-
-      }
-      {
-        stringDate && 
-        <Text> '{ stringDate }' </Text>
-      } */}
-      {/* <View style={styles.buttonContainer}>
-        <Button title="Create a new calendar" onPress={createCalendar} />
-      </View> */}
-    </View>
-
-    
-
     </>
   );
 }
 
-// async function getDefaultCalendarSource() {
-//   const defaultCalendar = await Calendar.getDefaultCalendarAsync();
-//   return defaultCalendar.source;
-// }
 
-// async function createCalendar() {
-//   const defaultCalendarSource =
-//     Platform.OS === 'ios'
-//       ? await getDefaultCalendarSource()
-//       : { isLocalAccount: true, name: 'Expo Calendar' };
-//   const newCalendarID = await Calendar.createCalendarAsync({
-//     title: 'Expo Calendar',
-//     color: 'blue',
-//     entityType: Calendar.EntityTypes.EVENT,
-//     sourceId: defaultCalendarSource.id,
-//     source: defaultCalendarSource,
-//     name: 'internalCalendarName',
-//     ownerAccount: 'personal',
-//     accessLevel: Calendar.CalendarAccessLevel.OWNER,
-//   });
-//   console.log(`Your new calendar ID is: ${newCalendarID}`);
-// }
 
 
 const styles = StyleSheet.create({
@@ -168,19 +163,3 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.BLACK
   },
 });
-
-
-{/* <View style={styles.container}>
-     
-     {calendars.map(calendar => (
-        <View key={calendar.id} style={styles.calendarContainer}>
-          <Text>{calendar.name}</Text>
-          {/* You can render more information about each calendar here */}
-    //     </View>
-    //   ))}
-    
-    //   <View style={styles.buttonContainer}>
-    //     <Text>Calendar Module Example</Text>
-    //     <Button title="Create a new calendar" onPress={createCalendar} />
-    //   </View>
-    // </View> */}

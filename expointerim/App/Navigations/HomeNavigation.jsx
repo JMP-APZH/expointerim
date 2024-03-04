@@ -5,6 +5,7 @@ import BusinessByCatScreen from '../Screens/BusinessByCatScreen/BusinessByCatScr
 import HomeScreen from '../Screens/HomeScreen/HomeScreen';
 import BusiDetScreen from '../Screens/BusinessDetailsScreen/BusiDetScreen';
 import CalendarScreen from '../Screens/CalendarScreen/CalendarScreen';
+import AgendaScreen from '../Screens/AgendaScreen/AgendaScreen';
 
 const Stack = createStackNavigator();
 
@@ -28,6 +29,10 @@ export default function HomeNavigation() {
       <Stack.Screen 
         name="calendar-view" 
         component={CalendarScreen}
+      />
+      <Stack.Screen 
+        name="agenda-view" 
+        component={AgendaScreen}
       />
     </Stack.Navigator>
   )
