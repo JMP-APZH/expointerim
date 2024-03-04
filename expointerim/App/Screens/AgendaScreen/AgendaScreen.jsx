@@ -3,9 +3,18 @@ import testIDs from './testIDs';
 import React, { useState, useEffect } from 'react';
 import { Alert, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { Agenda } from 'react-native-calendars';
+import Colors from '../../Utils/Colors';
 
 const AgendaScreen = () => {
   const [items, setItems] = useState(undefined);
+
+  const [markedDate, setMarkedDate] = useState('');
+
+  useEffect(() => {
+    const today = new Date();
+    const formattedDate = today.toISOString().split('T')[0];
+    setMarkedDate(formattedDate);
+  }, []);
 
   useEffect(() => {
     loadItems({ timestamp: Date.now() }); // Load items for the current date initially
@@ -74,7 +83,8 @@ const AgendaScreen = () => {
       testID={testIDs.agenda.CONTAINER}
       items={items}
       loadItemsForMonth={loadItems}
-      selected={'2017-05-16'}
+    //   selected={'2017-05-16'}
+      selected={ markedDate  }
       renderItem={renderItem}
       renderEmptyDate={renderEmptyDate}
       rowHasChanged={rowHasChanged}
