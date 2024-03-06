@@ -12,7 +12,10 @@ export default function BookingScreen() {
 
 const styles = StyleSheet.create({
   centralView: {
-    marginTop: 10,
+    marginTop: 30,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
     height: hp('100%'),
     width: wp('100%')
   }
