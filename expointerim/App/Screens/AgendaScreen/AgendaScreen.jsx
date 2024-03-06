@@ -1,5 +1,5 @@
 import testIDs from './testIDs';
-
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import React, { useState, useEffect } from 'react';
 import { Alert, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { Agenda } from 'react-native-calendars';
@@ -79,7 +79,7 @@ const AgendaScreen = () => {
   };
 
   return (
-    <View >
+    <View style={styles.centralView}>
       <Agenda
         testID={testIDs.agenda.CONTAINER}
         items={items}
@@ -97,7 +97,7 @@ const AgendaScreen = () => {
 
 const styles = StyleSheet.create({
   centralView: {
-    marginTop: 10,
+    marginTop: 40,
     height: hp('100%'),
     width: wp('100%')
   },
