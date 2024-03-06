@@ -79,21 +79,28 @@ const AgendaScreen = () => {
   };
 
   return (
-    <Agenda
-      testID={testIDs.agenda.CONTAINER}
-      items={items}
-      loadItemsForMonth={loadItems}
-    //   selected={'2017-05-16'}
-      selected={ markedDate  }
-      renderItem={renderItem}
-      renderEmptyDate={renderEmptyDate}
-      rowHasChanged={rowHasChanged}
-      showClosingKnob={true}
-    />
+    <View >
+      <Agenda
+        testID={testIDs.agenda.CONTAINER}
+        items={items}
+        loadItemsForMonth={loadItems}
+      //   selected={'2017-05-16'}
+        selected={ markedDate  }
+        renderItem={renderItem}
+        renderEmptyDate={renderEmptyDate}
+        rowHasChanged={rowHasChanged}
+        showClosingKnob={true}
+      />
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  centralView: {
+    marginTop: 10,
+    height: hp('100%'),
+    width: wp('100%')
+  },
   item: {
     backgroundColor: 'white',
     flex: 1,
