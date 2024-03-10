@@ -7,6 +7,10 @@ import Colors from '../../Utils/Colors';
 
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
 
+import { useQuery, useMutation, useSubscription } from '@apollo/client';
+import { GET_EVENTS, CREATE_EVENT } from '../../../api/queries';
+import { EVENT_CREATED } from './subscriptions';
+
 const client = new ApolloClient({
   uri: process.env.GRAPHQL_ENDPOINT, // Replace with your Hygraph CMS GraphQL endpoint
   cache: new InMemoryCache()
@@ -26,6 +30,12 @@ const ADD_EVENT = gql`
 `;
 
 const AgendaScreen = async (eventData) => {
+
+
+  const { loading, error, data } = useQuery(GET_EVENTS);
+  const [createEvent] = useMutation(CREATE_EVENT);
+  const { data: subscriptionData, loading: subscriptionLoading } = useSubscription(EVENT_CREATED);
+
 
   try {
     const { data } = await client.mutate({

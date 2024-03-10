@@ -1,0 +1,33 @@
+
+
+type User {
+  id: ID!
+  firstname: String
+  lastname: String
+  email: String!
+  events: [Event!]!
+}
+
+type Event {
+  id: ID!
+  title: String
+  participants: [User!]!
+  date: String
+  startTime: String
+  endTime: String
+  location: String
+}
+
+type Query {
+  getUser(id: ID!): User
+  getEvent(id: ID!): Event
+  getAllEvents: [Event!]!
+}
+
+type Mutation {
+  createEvent(title: String!, participants: [ID!]!, date: String!, startTime: String!, endTime: String!, location: String): Event!
+}
+
+type Subscription {
+  eventCreated: Event!
+}

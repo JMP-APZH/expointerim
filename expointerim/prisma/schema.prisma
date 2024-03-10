@@ -14,20 +14,20 @@ datasource db {
 }
 
 model User {
-  id  Int @id @default(autoincrement())
-  firstname    String?  @db.VarChar(255)
-  lastname    String?  @db.VarChar(255)
-  email   String   @unique @db.VarChar(255)
-  event Event[]
+  id         Int       @id @default(autoincrement())
+  firstname  String?   @db.VarChar(255)
+  lastname   String?   @db.VarChar(255)
+  email      String    @unique @db.VarChar(255)
+  events     Event[]   // Establishing a many-to-many relationship
 }
 
 model Event {
-  id  Int @id @default(autoincrement())
-  title    String?  @db.VarChar(255)
-  participants User[]
-  email   String   @unique @db.VarChar(255)
-  date DateTime?
-  time DateTime?
-  location String?
+  id            Int       @id @default(autoincrement())
+  title         String?   @db.VarChar(255)
+  participants  User[]    // Establishing a many-to-many relationship
+  date          DateTime?
+  startTime     DateTime? // Representing start time of the event
+  endTime       DateTime? // Representing end time of the event
+  location      String?
 }
 
