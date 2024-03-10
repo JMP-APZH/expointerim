@@ -12,3 +12,22 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id  Int @id @default(autoincrement())
+  firstname    String?  @db.VarChar(255)
+  lastname    String?  @db.VarChar(255)
+  email   String   @unique @db.VarChar(255)
+  event Event[]
+}
+
+model Event {
+  id  Int @id @default(autoincrement())
+  title    String?  @db.VarChar(255)
+  participants User[]
+  email   String   @unique @db.VarChar(255)
+  date DateTime?
+  time DateTime?
+  location String?
+}
+
