@@ -5,7 +5,41 @@ import { Alert, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { Agenda } from 'react-native-calendars';
 import Colors from '../../Utils/Colors';
 
-const AgendaScreen = () => {
+import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
+
+const client = new ApolloClient({
+  uri: process.env.GRAPHQL_ENDPOINT, // Replace with your Hygraph CMS GraphQL endpoint
+  cache: new InMemoryCache()
+});
+
+const ADD_EVENT = gql`
+  mutation AddEvent($input: EventInput!) {
+    addEvent(input: $input) {
+      id
+      title
+      participants
+      date
+      time
+      location
+    }
+  }
+`;
+
+const AgendaScreen = async (eventData) => {
+
+  try {
+    const { data } = await client.mutate({
+      mutation: ADD_EVENT,
+      variables: { input: eventData }
+    });
+    console.log('Event added successfully:', data.addEvent);
+    return data.addEvent;
+  } catch (error) {
+    console.error('Error adding event:', error);
+    throw error;
+  }
+};
+
   const [items, setItems] = useState(undefined);
 
   const [markedDate, setMarkedDate] = useState('');
