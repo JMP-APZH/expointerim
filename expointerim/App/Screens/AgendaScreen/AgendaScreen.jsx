@@ -1,7 +1,7 @@
 import testIDs from './testIDs';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import React, { useState, useEffect } from 'react';
-import { Alert, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { Alert, StyleSheet, Text, View, TouchableOpacity, Button } from 'react-native';
 import { Agenda } from 'react-native-calendars';
 import Colors from '../../Utils/Colors';
 
@@ -9,46 +9,82 @@ import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
 
 import { useQuery, useMutation, useSubscription } from '@apollo/client';
 import { GET_EVENTS, CREATE_EVENT } from '../../../api/queries';
-import { EVENT_CREATED } from './subscriptions';
+import { EVENT_CREATED } from '../../../api/subscriptions';
 
 const client = new ApolloClient({
-  uri: process.env.GRAPHQL_ENDPOINT, // Replace with your Hygraph CMS GraphQL endpoint
+  uri: 'http://localhost:4000/', // Replace with your Hygraph CMS GraphQL endpoint
   cache: new InMemoryCache()
 });
 
+// const ADD_EVENT = gql`
+//   mutation AddEvent($input: EventInput!) {
+//     addEvent(input: $input) {
+//       id
+//       title
+//       participants
+//       date
+//       time
+//       location
+//     }
+//   }
+// `;
+
 const ADD_EVENT = gql`
   mutation AddEvent($input: EventInput!) {
-    addEvent(input: $input) {
+    createEvent(input: $input) {
       id
       title
-      participants
       date
-      time
-      location
     }
   }
 `;
 
-const AgendaScreen = async (eventData) => {
+// const GET_EVENTS = gql`
+//   query GetEvents {
+//     events {
+//       id
+//       title
+//       date
+//     }
+//   }
+// `;
+
+
+const AgendaScreen = () => {
 
 
   const { loading, error, data } = useQuery(GET_EVENTS);
   const [createEvent] = useMutation(CREATE_EVENT);
   const { data: subscriptionData, loading: subscriptionLoading } = useSubscription(EVENT_CREATED);
+  const [addEvent] = useMutation(ADD_EVENT);
 
-
-  try {
-    const { data } = await client.mutate({
-      mutation: ADD_EVENT,
-      variables: { input: eventData }
+  const handleAddEvent = () => {
+    addEvent({
+      variables: {
+        input: {
+          title: 'New Event',
+          date: '2024-03-10',
+        },
+      },
     });
-    console.log('Event added successfully:', data.addEvent);
-    return data.addEvent;
-  } catch (error) {
-    console.error('Error adding event:', error);
-    throw error;
-  }
-};
+  };
+
+
+  if (loading) return <Text>Loading...</Text>;
+  if (error) return <Text>Error! ${error.message}</Text>;
+
+//   try {
+//     const { data } = await client.mutate({
+//       mutation: ADD_EVENT,
+//       variables: { input: eventData }
+//     });
+//     console.log('Event added successfully:', data.addEvent);
+//     return data.addEvent;
+//   } catch (error) {
+//     console.error('Error adding event:', error);
+//     throw error;
+//   }
+// };
 
   const [items, setItems] = useState(undefined);
 
@@ -123,6 +159,8 @@ const AgendaScreen = async (eventData) => {
   };
 
   return (
+    <>
+
     <View style={styles.centralView}>
       <Agenda
         testID={testIDs.agenda.CONTAINER}
@@ -136,8 +174,23 @@ const AgendaScreen = async (eventData) => {
         showClosingKnob={true}
       />
     </View>
+    <View>
+      <Text>Calendar</Text>
+      <Button
+        title="Add Event"
+        onPress={handleAddEvent}
+      />
+      {data.events.map(event => (
+        <View key={event.id}>
+          <Text>{event.title}</Text>
+          <Text>{event.date}</Text>
+        </View>
+      ))}
+    </View>
+
+    </>
   );
-}
+  };
 
 const styles = StyleSheet.create({
   centralView: {

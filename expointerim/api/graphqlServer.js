@@ -1,9 +1,9 @@
 // graphqlServer.js
 
-const { ApolloServer } = require('apollo-server');
-const http = require('http'); // Import the 'http' module for WebSocket support
-const typeDefs = require('./schema.graphql');
-const resolvers = require('./resolvers');
+import { ApolloServer } from 'apollo-server';
+import { createServer } from 'http'; // Import the 'http' module for WebSocket support
+import typeDefs from './schema.graphql';
+import resolvers from './resolvers';
 
 const server = new ApolloServer({
   typeDefs,
@@ -13,7 +13,7 @@ const server = new ApolloServer({
   },
 });
 
-const httpServer = http.createServer(server); // Create an HTTP server
+const httpServer = createServer(server); // Create an HTTP server
 
 server.listen().then(({ url }) => {
   console.log(`🚀 Server ready at ${url}`);
