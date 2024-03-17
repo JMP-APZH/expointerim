@@ -13,21 +13,41 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// model User {
+//   id        Int     @id @default(autoincrement())
+//   firstname String? @db.VarChar(255)
+//   lastname  String? @db.VarChar(255)
+//   email     String  @unique @db.VarChar(255)
+//   Events    Event[] // Establishing a many-to-many relationship
+// }
+
+// model Event {
+//   id             Int       @id @default(autoincrement())
+//   userId         Int
+//   title          String?   @db.VarChar(255)
+//   participant    User      @relation(fields: [participantId], references: [id])
+//   participantIds Int[]
+//   participantId  Int // Establishing a many-to-many relationship
+//   date           DateTime?
+//   startTime      DateTime? // Representing start time of the event
+//   endTime        DateTime? // Representing end time of the event
+//   location       String?
+// }
+
+
+model Meeting {
+  id        Int      @id @default(autoincrement())
+  title     String
+  startTime DateTime
+  endTime   DateTime
+  attendees User[]   
+  // # Other relevant fields like description, location etc.
+}
+
 model User {
-  id         Int       @id @default(autoincrement())
-  firstname  String?   @db.VarChar(255)
-  lastname   String?   @db.VarChar(255)
-  email      String    @unique @db.VarChar(255)
-  events     Event[]   // Establishing a many-to-many relationship
+  id     Int      @id @default(autoincrement())
+  email  String  @unique
+  name   String
+  meetings  Meeting[]   // This is the added relation field
+  // Other user related fields
 }
-
-model Event {
-  id            Int       @id @default(autoincrement())
-  title         String?   @db.VarChar(255)
-  participants  User[]    // Establishing a many-to-many relationship
-  date          DateTime?
-  startTime     DateTime? // Representing start time of the event
-  endTime       DateTime? // Representing end time of the event
-  location      String?
-}
-

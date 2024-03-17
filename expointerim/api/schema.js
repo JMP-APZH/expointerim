@@ -20,10 +20,16 @@
 
 import { createSchema } from 'graphql-yoga'
 import { pubsub } from './pubsub.js';
+import { PrismaClient, Prisma } from '@prisma/client'
 // import { makeExecutableSchema } from '@graphql-tools/schema'
- 
+
+
+
 // export const schema = makeExecutableSchema({
 export const schema = createSchema({
+
+// Create Prisma Client instance
+
   typeDefs: /* GraphQL */ `
     
   schema {
@@ -41,13 +47,15 @@ export const schema = createSchema({
     firstname: String
     lastname: String
     email: String!
-    events: [Event!]!
+    events: [Event]
   }
 
   type Event {
     id: ID!
+    userId: Int
     title: String
-    participants: [User!]!
+    participant: String      
+    # participantIds: [Int]
     date: String
     startTime: String
     endTime: String
@@ -55,7 +63,7 @@ export const schema = createSchema({
   }
 
   type Mutation {
-    createEvent(title: String!, participants: [ID!]!, date: String!, startTime: String!, endTime: String!, location: String): Event!
+    createEvent( userId: Int, title: String!, participant: String, date: String!, startTime: String!, endTime: String!, location: String): Event!
   }
   `,
   resolvers: {
@@ -64,13 +72,44 @@ export const schema = createSchema({
       getEvent: (_, { id }) => Event.findById(id),
       getAllEvents: () => Event.find(),
     },
+    // Mutation: {
+    //   createEvent: (_, { title, participants, date, startTime, endTime, location }) => {
+    //     const newEvent = new Event({ title, participants, date, startTime, endTime, location });
+    //     pubsub.publish('EVENT_CREATED', { eventCreated: newEvent });
+    //     return newEvent.save();
+    //   },
+    // },
     Mutation: {
-      createEvent: (_, { title, participants, date, startTime, endTime, location }) => {
-        const newEvent = new Event({ title, participants, date, startTime, endTime, location });
-        pubsub.publish('EVENT_CREATED', { eventCreated: newEvent });
-        return newEvent.save();
-      },
-    },
+      createEvent: async (_, { userId, title, participant, date, startTime, endTime, location }, { prisma }) => {
+        
+        // Extract user IDs from the fetched users
+        // const participantIds = participants.map(participant => participant.id);
+
+        // Use Prisma Client to create a new event in the database
+        const createEvent = await prisma.event.create({
+          data: {
+            userId,
+            title,
+            participant,
+            // participantIds: {
+            //   // createMany: {
+            //   //   data: [participants.map(participantId => ({ id: participantId }))],
+            //   // },
+            //   connect: participantIds.map(id => ({ id: id }))
+            // },
+            // include: {
+            //   participants: true, // Include the participants in the response
+            // },
+            date,
+            startTime,
+            endTime,
+            location
+          }
+        });
+  
+        return createEvent;
+      }
+    }
     // Subscription: {
     //   eventCreated: {
     //     subscribe: () => pubsub.asyncIterator(['EVENT_CREATED']),

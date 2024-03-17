@@ -12,7 +12,8 @@
     "server2": "node -r graphql-import-node/register api/index2.js",
     "server3": "node api/server.js",
     "server4": "node -r graphql-import-node/register api/index3.js",
-    "server5": "node -r graphql-import-node/register api/server.js"
+    "server5": "node -r graphql-import-node/register api/server.js",
+    "server6": "node -r graphql-import-node/register api/server2.js"
   },
   "dependencies": {
     "@apollo/client": "^3.9.6",
@@ -26,6 +27,7 @@
     "@react-navigation/stack": "^6.3.23",
     "@types/react": "~18.2.45",
     "apollo-server": "^3.13.0",
+    "apollo-server-express": "^3.13.0",
     "expo": "^50.0.8",
     "expo-calendar": "~12.2.1",
     "expo-constants": "~15.4.5",
@@ -35,6 +37,7 @@
     "expo-web-browser": "~12.8.2",
     "graphql": "^16.8.1",
     "graphql-import-node": "^0.0.5",
+    "graphql-iso-date": "^3.6.1",
     "graphql-request": "^6.1.0",
     "graphql-subscriptions": "^2.0.0",
     "graphql-tag": "^2.12.6",
