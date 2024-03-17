@@ -57,6 +57,18 @@ const resolvers = {
           const users = await prisma.user.findMany();
           return users;
         },
+        getUser: async (_, { id }) => {
+            const parsedId = parseInt(id);
+            if (isNaN(parsedId)) {
+            throw new Error('Invalid id: cannot be parsed as a number');
+            }
+            console.log("Received ID:", id);
+            // Use Prisma to fetch the user with the provided ID
+            const user = await prisma.user.findUnique({
+              where: { id: parsedId },
+            });
+            return user;
+        },
     },
   Mutation: {
     createMeeting: async (_, args) => {
