@@ -122,7 +122,7 @@ export default function Slider() {
 
         const data2 = data?.sliders
 
-        console.log('From New Slider:', data2)
+        // console.log('From New Slider:', data2)
     
     
     // useEffect(() => {

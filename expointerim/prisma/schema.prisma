@@ -57,3 +57,10 @@ model Slider {
   imageUrl String
   // Other user related fields
 }
+
+model Category {
+  id      Int    @id @default(autoincrement())
+  name    String
+  iconUrl String
+  // Other user related fields
+}

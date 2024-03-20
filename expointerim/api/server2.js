@@ -19,6 +19,7 @@ const typeDefs = gql`
     getMeeting(id: ID!): Meeting
     meetings: [Meeting]
     sliders: [Slider]
+    categories: [Category]
   }
 
   type Meeting {
@@ -43,6 +44,12 @@ const typeDefs = gql`
     imageUrl: String!
   }
 
+  type Category {
+    id: ID!
+    name: String!
+    iconUrl: String!
+  }
+
   type Mutation {
     createUser(
       email: String!
@@ -58,6 +65,10 @@ const typeDefs = gql`
       name: String!
       imageUrl: String!
     ): Slider!
+    createCategory(
+      name: String!
+      iconUrl: String!
+    ): Category!
   }
 `;
 
@@ -81,6 +92,10 @@ const resolvers = {
         sliders: async () => {
           const sliders = await prisma.slider.findMany();
           return sliders;
+        },
+        categories: async () => {
+          const categories = await prisma.category.findMany();
+          return categories;
         },
         getUser: async (_, { id }) => {
             const parsedId = parseInt(id);
@@ -150,6 +165,21 @@ const resolvers = {
         // You can also include more specific error details here
       };
   }
+},
+createCategory: async (parent, args, context) => {
+  try {
+      const newCategory = await prisma.category.create({
+          data: { name: args.name, iconUrl: args.iconUrl },
+        });
+        return newCategory;
+
+  } catch (error) {
+    console.error(error);
+    return {
+      error: "Failed to create category",
+      // You can also include more specific error details here
+    };
+}
 },
 }
 }
