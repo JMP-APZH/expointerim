@@ -34,20 +34,26 @@ datasource db {
 //   location       String?
 // }
 
-
 model Meeting {
   id        Int      @id @default(autoincrement())
   title     String
   startTime DateTime
   endTime   DateTime
-  attendees User[]   
+  attendees User[]
   // # Other relevant fields like description, location etc.
 }
 
 model User {
-  id     Int      @id @default(autoincrement())
-  email  String  @unique
-  name   String
-  meetings  Meeting[]   // This is the added relation field
+  id       Int       @id @default(autoincrement())
+  email    String    @unique
+  name     String
+  meetings Meeting[] // This is the added relation field
+  // Other user related fields
+}
+
+model Slider {
+  id       Int    @id @default(autoincrement())
+  name     String
+  imageUrl String
   // Other user related fields
 }

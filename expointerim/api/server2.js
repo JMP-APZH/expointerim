@@ -17,7 +17,8 @@ const typeDefs = gql`
     getUser(id: ID!): User
     users: [User!]!
     getMeeting(id: ID!): Meeting
-    getAllMeetings: [Meeting!]!
+    meetings: [Meeting]
+    sliders: [Slider]
   }
 
   type Meeting {
@@ -36,6 +37,12 @@ const typeDefs = gql`
     # Optional: Link user to meetings
   }
 
+  type Slider {
+    id: ID!
+    name: String!
+    imageUrl: String!
+  }
+
   type Mutation {
     createUser(
       email: String!
@@ -47,6 +54,10 @@ const typeDefs = gql`
       endTime: DateTime!
       attendeeIds: [Int]
     ): Meeting!
+    createSlider(
+      name: String!
+      imageUrl: String!
+    ): Slider!
   }
 `;
 
@@ -56,6 +67,20 @@ const resolvers = {
         users: async () => {
           const users = await prisma.user.findMany();
           return users;
+        },
+        meetings: async () => {
+          const meetings = await prisma.meeting.findMany({
+            include: { attendees: true },
+          });
+          // return meetings; // works exactly like the code below 
+          return meetings.map((meeting) => ({
+            ...meeting, // Include all other meeting fields
+            attendees: meeting.attendees || [], // Return empty list if attendees is null
+          }));
+        },
+        sliders: async () => {
+          const sliders = await prisma.slider.findMany();
+          return sliders;
         },
         getUser: async (_, { id }) => {
             const parsedId = parseInt(id);
@@ -111,6 +136,21 @@ const resolvers = {
           };
       }
   },
+  createSlider: async (parent, args, context) => {
+    try {
+        const newSlider = await prisma.slider.create({
+            data: { name: args.name, imageUrl: args.imageUrl },
+          });
+          return newSlider;
+
+    } catch (error) {
+      console.error(error);
+      return {
+        error: "Failed to create slider",
+        // You can also include more specific error details here
+      };
+  }
+},
 }
 }
 

@@ -10,6 +10,7 @@ import BusinessPhotos from './BusinessPhotos';
 import BusinessAboutMe from './BusinessAboutMe';
 import Header from '../HomeScreen/Header';
 import BookingModal from './BookingModal';
+import { ApolloClient, InMemoryCache } from '@apollo/client';
 
 export default function BusiDetScreen() {
 
@@ -24,7 +25,14 @@ export default function BusiDetScreen() {
       };
 
     const handleOpenAgenda = () => {
-    navigation.push('agenda-view');
+        // const newClient = new ApolloClient({
+        //     uri: 'http://localhost:4000/',
+        //     cache: new InMemoryCache()
+        //   });
+        // const newclientUri = 'http://localhost:4000/';
+        navigation.push('agenda-view', 
+        // { clientUri: newclientUri }
+        );
     };
     // useEffect(() => {
     //   console.log('Param from business: ', param?.business)

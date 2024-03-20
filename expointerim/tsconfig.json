@@ -1,4 +1,6 @@
 {
-  "compilerOptions": {},
+  "compilerOptions": {
+    "typeRoots": ["./node_modules/@types", "./apollo-link-logger.d.ts"]
+  },
   "extends": "expo/tsconfig.base"
 }

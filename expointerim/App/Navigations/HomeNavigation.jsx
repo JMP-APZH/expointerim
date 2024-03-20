@@ -6,8 +6,14 @@ import HomeScreen from '../Screens/HomeScreen/HomeScreen';
 import BusiDetScreen from '../Screens/BusinessDetailsScreen/BusiDetScreen';
 import CalendarScreen from '../Screens/CalendarScreen/CalendarScreen';
 import AgendaScreen from '../Screens/AgendaScreen/AgendaScreen';
+import { ApolloClient, InMemoryCache } from '@apollo/client';
 
 const Stack = createStackNavigator();
+
+const client2 = new ApolloClient({
+  uri: 'http://localhost:4000/',
+  cache: new InMemoryCache()
+});
 
 export default function HomeNavigation() {
   return (
@@ -31,7 +37,8 @@ export default function HomeNavigation() {
         component={CalendarScreen}
       />
       <Stack.Screen 
-        name="agenda-view" 
+        name="agenda-view"
+        client = {client2}
         component={AgendaScreen}
       />
     </Stack.Navigator>
